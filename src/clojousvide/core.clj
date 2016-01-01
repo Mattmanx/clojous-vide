@@ -4,7 +4,9 @@
             [clojousvide.db.migrations :as migrations]
             [clojure.tools.nrepl.server :as nrepl]
             [taoensso.timbre :as timbre]
-            [environ.core :refer [env]])
+            [environ.core :refer [env]]
+            [clojousvide.hardware.heater :as heater]
+            [clojousvide.hardware.thermometer :as temp])
   (:gen-class))
 
 (defonce nrepl-server (atom nil))
@@ -67,4 +69,13 @@
     (do (migrations/migrate args) (System/exit 0))
     :else
     (start-app args)))
-  
+
+(defn ghetto-pid
+  "I don't do a whole lot ... yet."
+  []
+  (loop []
+    (if (>= (temp/get-water-temp) 60) (heater/heater-off!) (heater/heater-on!))
+    (Thread/sleep 120000)
+    (recur)
+    )
+  )
