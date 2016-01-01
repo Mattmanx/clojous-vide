@@ -1,3 +1,8 @@
+# PROJECT CANNED!!!
+After an initial test run on the raspberry pi, I realized that I greatly overestimated the power of the device as well as the performance requirements of my stack.  For one, the core async library I was using to implement my PID controller required a server VM, whereas I had a hotspot on my RPi.  
+
+I'm attempting to reimplement this in Go.  In the meantime, I wrote a small clojure app that simply monitors the temperature at a defined interval and turns the heater on/off based on the reading vs a target.  That has worked for now to cook many delicious things.  
+
 # clojous-vide
 ## What? 
 An all-in-one application to run my (your?) Raspberry Pi-based Sous Vide cooker. A PID controller to maintain temperature, REST services to control state, target temperature, sensors, etc. and a pretty front-end to consume said services. From a hardware standpoint, I was able to find some outstanding resources online to get to a point where I can read temp from a [DS18B20 "1-Wire" Temperature Sensor](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/hardware) and [control an RF power outlet](http://timleland.com/wireless-power-outlets/). As a bonus, I had an excuse to buy and play with a soldering iron, so I've already seen a considerable return on the time commitment thus far.  I know that's not much to go off of - I'll put together an .io page with some more details on how to turn your $35 Pi into a mean water bath cooking machine once I've got the software in a good state. 
